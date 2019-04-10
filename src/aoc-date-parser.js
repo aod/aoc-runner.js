@@ -33,10 +33,10 @@ module.exports = date => {
                 .split(',')
                 .forEach(value => {
                     if (value.includes('-')) {
-                        let [min, max] = value.split('-')
-                        min = Math.abs(min)
-                        max = Math.min(Math.max(max, min), 25)
-                        for (let i = Math.abs(min); i <= max; i++) {
+                        let [minValue, maxValue] = value.split('-')
+                        maxValue = Math.min(Math.max(maxValue, min), max)
+                        minValue = Math.min(Math.max(minValue, min), maxValue)
+                        for (let i = min; i <= maxValue; i++) {
                             toRunValues.push(i)
                         }
                     } else {
