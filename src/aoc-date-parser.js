@@ -36,7 +36,7 @@ module.exports = date => {
                         let [minValue, maxValue] = value.split('-')
                         maxValue = Math.min(Math.max(maxValue, min), max)
                         minValue = Math.min(Math.max(minValue, min), maxValue)
-                        for (let i = min; i <= maxValue; i++) {
+                        for (let i = minValue; i <= maxValue; i++) {
                             toRunValues.push(i)
                         }
                     } else {
