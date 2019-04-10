@@ -1,49 +1,18 @@
-#!/usr/bin/env node
-
 const fs = require('fs')
 const path = require('path')
 
-const AOC_STARTING_YEAR = 2015
-const AOC_CURRENT_YEAR_IN_PROGRESS = 2018
-const CURRENT_WORKING_DIR = process.cwd()
+const { repeatAmount, verbose } = require('./cmdline')
 
 const aocRunnerconfig = require(path.join(
-    CURRENT_WORKING_DIR,
+    process.cwd(),
     'aoc-runner.config.js'
 ))
 
-const argv = process.argv.slice(2)
-const [puzzle = '', repeatAmount = 1] = argv.filter(v => !v.startsWith('-'))
-const verbose = argv.includes('-v')
-
-const [year, day, part] = puzzle.split('.')
-const input = [
-    ['year', year, AOC_STARTING_YEAR, AOC_CURRENT_YEAR_IN_PROGRESS],
-    ['day', day, 1, 25],
-    ['part', part, 1, 2]
-]
-
-const toRun = new Map()
-
-for (const [name, part, min, max] of input) {
-    toRun.set(name, [])
-    if (!part) {
-        for (let i = min; i <= max; i++) {
-            toRun.get(name).push(i)
-        }
-    } else {
-        part.replace(/\,[\s]*$/, '')
-            .split(',')
-            .map(Number)
-            .forEach(value => toRun.get(name).push(value))
-    }
-}
-
-function run(aocPuzzle) {
+module.exports = aocPuzzle => {
     const solutionId = `${aocPuzzle.year}.${aocPuzzle.day}.${aocPuzzle.part}`.padEnd(9, ' ')
 
     const solutionPath = path.join(
-        CURRENT_WORKING_DIR,
+        process.cwd(),
         (() => {
             if (typeof aocRunnerconfig.path === 'object') {
                 return ['year', 'day', 'part']
@@ -79,7 +48,7 @@ function run(aocPuzzle) {
         if (verbose) {
             console.warn(
                 '\x1b[31m%s\x1b[0m',
-                `❌  ${' '.repeat(
+                `❌ ${' '.repeat(
                     10
                 )} ${solutionId} => Unable to resolve, file doesn't exist.`
             )
@@ -100,18 +69,13 @@ function run(aocPuzzle) {
     }
     const diff = process.hrtime(start)
     const diffInMs = diff[0] * 1e3 + diff[1] / 1e6
+    const ms = (diffInMs / maxRepeatAmount).toFixed(3)
 
-    const ms = ((diffInMs / maxRepeatAmount).toFixed(3) + 'ms')
-        .replace('.', ',')
-        .padEnd(10, ' ')
+    const [digit, decimal] = ms.toString().split('.')
+    const msText = `${digit.padStart(4, ' ')},${decimal.padEnd(3, '0')}ms`
 
-    console.log(`✅  ${ms} ${solutionId} => ${output}`)
-}
+    const [solutionIdYear, solutionIdDay, solutionIdPart] = solutionId.split('.')
+    const solutionIdText = `${solutionIdYear}.${solutionIdDay.padStart(2, ' ')}.${solutionIdPart}`.trim()
 
-for (const y of toRun.get('year')) {
-    for (const d of toRun.get('day')) {
-        for (const p of toRun.get('part')) {
-            run({ year: y, day: d, part: p })
-        }
-    }
+    console.log(`✅ ${msText} ${solutionIdText} => ${output}`)
 }

@@ -1,0 +1,2 @@
+module.exports.AOC_STARTING_YEAR = 2015
+module.exports.AOC_CURRENT_YEAR_IN_PROGRESS = 2018
