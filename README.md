@@ -16,7 +16,7 @@ USAGE:
   -v             : enables verboseness i.e. displays warning messages.
   args[0]        : the solution to run.
                    e.g. ".1,2,3,7.1" will run day 1, 2, 3 & 7 part 1 for
-                   year 2015 through 2018.
+                   all the years.
                    To select a range of values use "-".
                    e.g. ".1-3,7-22.1"
                    To exclude solutions use the optional ":" notation after

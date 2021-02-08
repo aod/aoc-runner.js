@@ -1,7 +1,16 @@
 const {
     AOC_STARTING_YEAR,
-    AOC_CURRENT_YEAR_IN_PROGRESS
 } = require('./constants')
+
+const currentAocYear = () => {
+    const now = new Date();
+    const DECEMBER = 11;
+    if (now.getMonth() >= DECEMBER) {
+        return now.getFullYear();
+    } else {
+        return now.getFullYear() - 1;   
+    }
+}
 
 module.exports = date => {
     const toRun = new Map([['year', []],['day', []],['part', []]])
@@ -14,7 +23,7 @@ module.exports = date => {
 
     const [year, day, part] = date.split('.')
     const input = [
-        ['year', year, AOC_STARTING_YEAR, AOC_CURRENT_YEAR_IN_PROGRESS],
+        ['year', year, AOC_STARTING_YEAR, currentAocYear()],
         ['day', day, 1, 25],
         ['part', part, 1, 2]
     ]
