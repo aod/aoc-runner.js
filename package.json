@@ -1,6 +1,6 @@
 {
     "name": "aoc-runner",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "A tool to help run Advent of Code solutions",
     "main": "./src/index.js",
     "scripts": {
@@ -8,7 +8,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/aoktayd/adventofcode-runner.git"
+        "url": "git+https://github.com/aod/aoc-runner.js.git"
     },
     "keywords": [
         "adventofcode",
@@ -19,7 +19,7 @@
     "author": "Oktay Dinler",
     "license": "Unlicense",
     "bugs": {
-        "url": "https://github.com/aoktayd/adventofcode-runner/issues"
+        "url": "https://github.com/aod/aoc-runner.js/issues"
     },
-    "homepage": "https://github.com/aoktayd/adventofcode-runner#readme"
+    "homepage": "https://github.com/aod/aoc-runner.js#readme"
 }
